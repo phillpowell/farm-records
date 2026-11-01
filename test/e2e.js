@@ -83,7 +83,8 @@ async function main() {
     await save();
     await page.waitForSelector('text=more than are left');
     await page.fill('#f-count', '5');
-    const png = Buffer.from(fs.readFileSync(path.join(__dirname, '..', 'icons', 'icon-192.png')));
+    // A tiny 2x2 PNG picture.
+    const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVR4AWP4z8DwnwEIGBgY/jMwAAAt+gP9WJ0qhwAAAABJRU5ErkJggg==', 'base64');
     await page.setInputFiles('#f-photo', { name: 'dead.png', mimeType: 'image/png', buffer: png });
     await page.waitForSelector('#photoPreview:not([hidden])');
     await page.screenshot({ path: `${SHOTS}/05-death-form.png`, fullPage: true });
