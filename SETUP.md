@@ -39,7 +39,21 @@ The app itself is published from GitHub. The records are stored in a Google Shee
    - You'll see *"Google hasn't verified this app"*. This is normal for your own scripts. Click **Advanced → Go to Farm Records (unsafe) → Allow**.
    - If nothing seems to happen after allowing, click **1. Set up sheets** again.
    - You now have four tabs: **Summary**, **Animals**, **Events**, **Settings**.
-   - If you still get **"This app is blocked"**: check step 4 was saved. If it was, the account is probably a work/school Google account whose administrator blocks scripts. Use a personal Gmail account instead.
+   - If you get **"This app is blocked"** instead, follow the next section, then come back and run **1. Set up sheets** again.
+
+### If Google says "This app is blocked"
+
+Google now blocks many personal scripts until they have their own (free) Google Cloud project with you listed as a tester. You only do this once:
+
+1. Go to **https://console.cloud.google.com**, then the project picker at the top → **New project**. Name it `Farm Records`, click **Create**, and select it.
+2. **☰ → APIs & Services → OAuth consent screen** (or **Google Auth Platform**) → **Get started**. Set the app name to `Farm Records`, the support email to yours, Audience to **External**, and the contact email to yours. Agree, then **Create**.
+3. **Audience → Test users → Add users**, enter your own email, and **Save**.
+4. Still on **Audience**, click **Publish app** and confirm. The script only asks for narrow permissions, so Google doesn't need to review it. Without this step, Google may make you re-approve the script every 7 days, and uploads from the farm would stop until you did.
+5. **☰ → APIs & Services → Library**, find **Google Drive API**, and click **Enable** (needed for photos).
+6. **☰ → Cloud overview → Dashboard** and copy the **Project number** (all digits).
+7. In Apps Script: ⚙️ **Project Settings → Google Cloud Platform (GCP) Project → Change project**, paste the number, then **Set project**.
+
+If it is *still* blocked after this, create a fresh **@gmail.com** account for the farm and set the Sheet up there.
 
 ### Turn it into a web app
 
