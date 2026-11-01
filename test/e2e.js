@@ -178,7 +178,7 @@ async function main() {
     assert.strictEqual(pigRow[col('Tag / batch no.')], '007', 'tag kept as text');
     assert.strictEqual(pigRow[col('Price paid (NPR)')], 15000);
     const deathRow = ev.find((r) => r[col('Event')] === 'Death/Loss');
-    assert.match(String(deathRow[col('Photo')]), /^https:\/\/drive\.example\//, 'photo saved to Drive');
+    assert.match(String(deathRow[col('Photo')]), /^https:\/\/drive\.google\.com\/file\/d\/file1\/view$/, 'photo saved to Drive');
     assert.strictEqual(s.files, 1);
     const animals = s.sheets.Animals;
     const ah = animals[0];

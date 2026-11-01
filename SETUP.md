@@ -22,18 +22,24 @@ The app itself is published from GitHub. The records are stored in a Google Shee
 
 ## Part 2 – Create the Google Sheet "server"
 
+> **Use a browser window signed in to only one Google account** (an incognito window or its own Chrome profile). With several accounts signed in, Apps Script often opens under the wrong one and says *"Sorry, unable to open the file at present"*.
+
 1. Go to **https://sheets.new** (signed in with the Google account that will own the records). Name the sheet **Farm Records**.
-2. Click **Extensions → Apps Script**. A code editor opens in a new tab.
+2. Click **Extensions → Apps Script**. A code editor opens in a new tab. Rename the project (top left, "Untitled project") to **Farm Records**.
 3. Delete everything in `Code.gs`. Paste in the whole contents of [`apps-script/Code.gs`](apps-script/Code.gs) from this repository.
-4. Near the top, check the `APP_ADDRESS` line matches your app address from Part 1 (it is already set for the test version), e.g.
-   `const APP_ADDRESS = 'https://YOUR-USERNAME.github.io/farm-records/';`
-5. Click the 💾 **Save** icon. Rename the project (top left, "Untitled project") to **Farm Records**.
+   Near the top, check the `APP_ADDRESS` line matches your app address from Part 1. It is already set for the test version.
+4. Set the script's permissions:
+   - Click ⚙️ **Project Settings** in the left sidebar and tick **Show "appsscript.json" manifest file in editor**.
+   - Click **<> Editor** in the left sidebar, open **appsscript.json**, delete everything in it, and paste in the contents of [`apps-script/appsscript.json`](apps-script/appsscript.json).
+   - This limits the script to *this one Sheet* and *only the photo files it creates* in your Drive. Without it, Google asks for full Drive access and may show **"This app is blocked"**.
+5. Click the 💾 **Save** icon.
 6. Go back to the Sheet tab and **reload the page**. After a few seconds a **Farm Records** menu appears next to *Help*.
 7. Click **Farm Records → 1. Set up sheets**.
    - Google asks you to authorise the script. Click **Continue**, choose your account.
    - You'll see *"Google hasn't verified this app"*. This is normal for your own scripts. Click **Advanced → Go to Farm Records (unsafe) → Allow**.
    - If nothing seems to happen after allowing, click **1. Set up sheets** again.
    - You now have four tabs: **Summary**, **Animals**, **Events**, **Settings**.
+   - If you still get **"This app is blocked"**: check step 4 was saved. If it was, the account is probably a work/school Google account whose administrator blocks scripts. Use a personal Gmail account instead.
 
 ### Turn it into a web app
 

@@ -1,8 +1,8 @@
 /**
  * Farm Records – Google Sheet server
  *
- * Paste this whole file into Extensions > Apps Script in the farm Google Sheet.
- * See SETUP.md in the GitHub repository for step-by-step instructions.
+ * Paste this whole file into Extensions > Apps Script in the farm Google Sheet, and
+ * apps-script/appsscript.json into the project's manifest (see SETUP.md, Part 2).
  *
  * The app sends entries here; this script saves them in the "Events" tab and
  * rebuilds the "Animals" and "Summary" tabs. Lists such as animal types, staff
@@ -302,20 +302,27 @@ function readSettings_() {
   return out;
 }
 
+// Photos go into a "Farm Records Photos" folder in the owner's Google Drive. This uses the
+// Drive advanced service with the narrow "drive.file" permission (only files this script
+// creates), so Google doesn't block the script for asking for full Drive access.
 function savePhoto_(ev) {
   const m = /^data:(image\/[a-z]+);base64,(.+)$/.exec(ev.photoData);
   if (!m) throw new Error('not an image');
   const props = PropertiesService.getScriptProperties();
-  let folder;
-  const folderId = props.getProperty('PHOTO_FOLDER_ID');
-  if (folderId) { try { folder = DriveApp.getFolderById(folderId); } catch (err) { folder = null; } }
-  if (!folder) {
-    folder = DriveApp.createFolder('Farm Records Photos');
-    props.setProperty('PHOTO_FOLDER_ID', folder.getId());
+  let folderId = props.getProperty('PHOTO_FOLDER_ID');
+  if (folderId) {
+    try {
+      if (Drive.Files.get(folderId, { fields: 'id,trashed' }).trashed) folderId = null;
+    } catch (err) { folderId = null; }
+  }
+  if (!folderId) {
+    folderId = Drive.Files.create({ name: 'Farm Records Photos', mimeType: 'application/vnd.google-apps.folder' }).id;
+    props.setProperty('PHOTO_FOLDER_ID', folderId);
   }
   const name = [ev.eventDate, ev.species, ev.animalId, ev.type].join(' ').replace(/[\\/:*?"<>|]/g, '-') + '.jpg';
   const blob = Utilities.newBlob(Utilities.base64Decode(m[2]), m[1], name);
-  return folder.createFile(blob).getUrl();
+  const file = Drive.Files.create({ name: name, parents: [folderId] }, blob);
+  return 'https://drive.google.com/file/d/' + file.id + '/view';
 }
 
 // ---------------------------------------------------------------- Animals & Summary tabs

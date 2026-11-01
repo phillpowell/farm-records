@@ -60,6 +60,7 @@ Every entry also stores who recorded it, on which device and when.
 | `js/register.js` | Works out current animals/batches from the events (mirrored in `Code.gs`) |
 | `sw.js` | Lets the app open without internet |
 | `apps-script/Code.gs` | The Google Sheet script. Paste this into Apps Script. |
+| `apps-script/appsscript.json` | The script's permissions (this Sheet only, plus the photo files it creates). Paste into the Apps Script manifest. |
 | `test/` | Automated browser test with a fake Google Sheet (developers only) |
 
 ## For developers

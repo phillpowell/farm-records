@@ -101,9 +101,14 @@ function createGas() {
       base64Decode: (s) => Buffer.from(s, 'base64'),
       newBlob: (bytes, type, name) => ({ bytes, type, name }),
     },
-    DriveApp: {
-      createFolder: (name) => ({ getId: () => 'folder1', createFile: (b) => { files.push(b); return { getUrl: () => `https://drive.example/${files.length}` }; } }),
-      getFolderById: () => ({ createFile: (b) => { files.push(b); return { getUrl: () => `https://drive.example/${files.length}` }; } }),
+    Drive: {
+      Files: {
+        get: (id) => ({ id, trashed: false }),
+        create: (meta, blob) => {
+          if (blob) files.push({ meta, blob });
+          return { id: blob ? `file${files.length}` : 'folder1' };
+        },
+      },
     },
     HtmlService: { createHtmlOutput: () => ({ setWidth() { return this; }, setHeight() { return this; } }) },
     Logger: { log: console.log },
