@@ -10,7 +10,7 @@
  */
 
 // The web address of the app (GitHub Pages). Used to make the one-click setup link.
-const APP_ADDRESS = 'https://YOUR-GITHUB-USERNAME.github.io/farm-records/';
+const APP_ADDRESS = 'https://phillpowell.github.io/farm-records/';
 
 const SHEET = { events: 'Events', animals: 'Animals', summary: 'Summary', settings: 'Settings' };
 

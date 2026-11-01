@@ -25,7 +25,7 @@ The app itself is published from GitHub. The records are stored in a Google Shee
 1. Go to **https://sheets.new** (signed in with the Google account that will own the records). Name the sheet **Farm Records**.
 2. Click **Extensions → Apps Script**. A code editor opens in a new tab.
 3. Delete everything in `Code.gs`. Paste in the whole contents of [`apps-script/Code.gs`](apps-script/Code.gs) from this repository.
-4. Near the top, change the `APP_ADDRESS` line to your app address from Part 1, e.g.
+4. Near the top, check the `APP_ADDRESS` line matches your app address from Part 1 (it is already set for the test version), e.g.
    `const APP_ADDRESS = 'https://YOUR-USERNAME.github.io/farm-records/';`
 5. Click the 💾 **Save** icon. Rename the project (top left, "Untitled project") to **Farm Records**.
 6. Go back to the Sheet tab and **reload the page**. After a few seconds a **Farm Records** menu appears next to *Help*.
